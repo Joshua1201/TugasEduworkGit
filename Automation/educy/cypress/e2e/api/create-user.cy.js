@@ -8,8 +8,8 @@ describe('Create new user', () => {
             "job": "Education"
         };
         cy.request('POST', 'https://reqres.in/api/users', user).then((response) => {
-            expect(response.body).to.have.property('name', 'Eduwork')
-            expect(response.body).to.have.property('job', 'Education')
+            expect(response.body).to.have.property('name', user.name)
+            expect(response.body).to.have.property('job', user.job)
         })
     });
 });
