@@ -1,0 +1,16 @@
+{
+  "name": "joshua",
+  "name_salah": "j",
+  "email_salah_format": "josh",
+  "email_benar": "joshua1201@gmail.com",
+  "email_sisko": "joshua1206@gmail.com",
+  "email_not_exist": "aqw12sq@gmail.com",
+  "email_user": "epickarrie1991@gmail.com",
+  "field_kosong": "{enter}",
+  "email_exist": "aaa@gmail.com",
+  "password_benar": "abcd",
+  "password_user": "1991epickarrie",
+  "password_sisko_benar": "abc123",
+  "password_salah": "aaaa",
+  "confirm_pass_salah": "abcd"
+}
