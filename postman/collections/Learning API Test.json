@@ -1,0 +1,886 @@
+{
+	"info": {
+		"_postman_id": "f34c0183-0ace-4612-9cac-0beded5a0933",
+		"name": "Learning API Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "30815359-f34c0183-0ace-4612-9cac-0beded5a0933"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Basic Auth",
+					"id": "b903569f-2b2c-4977-9d89-3756ba053ae1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://the-internet.herokuapp.com/basic_auth",
+							"protocol": "https",
+							"host": [
+								"the-internet",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"basic_auth"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "f334c282-ea58-4ddb-804d-dd0ddf297049"
+		},
+		{
+			"name": "Pokeapi",
+			"item": [
+				{
+					"name": "Validate Header",
+					"id": "6b554d8c-6c38-40c4-bf21-8020b4d37885",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://pokeapi.co/api/v2/pokemon/ditto",
+							"protocol": "https",
+							"host": [
+								"pokeapi",
+								"co"
+							],
+							"path": [
+								"api",
+								"v2",
+								"pokemon",
+								"ditto"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "caa6a3d6-f2cf-4653-b7f9-a44b5d03c86b"
+		},
+		{
+			"name": "Get List Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97324442-114d-484d-b883-ebbc9c04bc3f",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"page\": {\"type\": \"number\" },\r",
+							"        \"per_page\": {\"type\": \"number\" },\r",
+							"        \"total\": {\"type\": \"number\" },\r",
+							"        \"total_pages\": {\"type\": \"number\" },\r",
+							"        \"data\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"properties\": {\r",
+							"                \"id\": { \"type\": \"number\" },\r",
+							"                \"email\": { \"type\": \"string\", \"format\": \"email\" },\r",
+							"                \"first_name\": { \"type\": \"string\" },\r",
+							"                \"last_name\": { \"type\": \"string\" },\r",
+							"                \"avatar\": { \"type\": \"string\" },\r",
+							"            },\r",
+							"            \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"]\r",
+							"        },\r",
+							"        \"support\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"url\": { \"type\": \"string\" },\r",
+							"                \"text\": { \"type\": \"string\" }\r",
+							"            },\r",
+							"            \"required\": [\"url\", \"text\"]\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\"page\", \"per_page\", \"total\", \"total_pages\", \"data\", \"support\"]\r",
+							"}\r",
+							"\r",
+							"pm.environment.get(\"variable_key\");\r",
+							"pm.test(\"Response berisi Data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "56900078-94e1-49d6-a643-6d9d98bcbb83",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=3&per_page=3",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "3"
+						},
+						{
+							"key": "per_page",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22cd344e-6aa3-4f42-abcc-1804128ae21d",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"name\": { \"type\": \"string\" },\r",
+							"        \"job\": { \"type\": \"string\" },\r",
+							"        \"id\": { \"type\": \"string\" },\r",
+							"        \"createdAt\": { \"type\": \"string\" }\r",
+							"    },\r",
+							"    \"required\": [\"name\", \"job\", \"id\", \"createdAt\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "72d7426f-2bdf-4363-8c60-36215bb59f9d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"joshua\",\r\n    \"job\": \"QA Engineer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}",
+					"host": [
+						"{{url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e9fca1b-31ea-43a2-b3a5-abcfe2e5650e",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"name\": { \"type\": \"string\" },\r",
+							"        \"job\": { \"type\": \"string\" },\r",
+							"        \"updatedAt\": { \"type\": \"string\" }\r",
+							"    },\r",
+							"    \"required\": [\"name\", \"job\", \"updatedAt\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "3d701c49-fec9-4976-aba1-b6c1c3a4b42b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dummy\",\r\n    \"job\": \"UI Dev\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07594015-6527-4438-ad4f-ddc953bb1ac7",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"data\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"id\": { \"type\": \"number\" },\r",
+							"                \"email\": { \"type\": \"string\", \"format\": \"email\" },\r",
+							"                \"first_name\": { \"type\": \"string\" },\r",
+							"                \"last_name\": { \"type\": \"string\" },\r",
+							"                \"avatar\": { \"type\": \"string\" },\r",
+							"            },\r",
+							"            \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"]\r",
+							"        },\r",
+							"        \"support\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"url\": { \"type\": \"string\" },\r",
+							"                \"text\": { \"type\": \"string\" }\r",
+							"            },\r",
+							"            \"required\": [\"url\", \"text\"]\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\"data\", \"support\"]\r",
+							"}\r",
+							"\r",
+							"pm.environment.get(\"variable_key\");\r",
+							"pm.test(\"Response berisi Data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "039644d6-d792-42b0-85bb-af5f3f004e46",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d456999b-24df-471d-a909-01e7df7020ac",
+						"exec": [
+							"pm.test(\"Response is empty\", () => {\r",
+							"    pm.response.to.not.be.withBody;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "71af9067-9766-46d1-a2bb-a4cf3809be5a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single User Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a6ad872-91ce-4e09-b1c3-1efd789a98ff",
+						"exec": [
+							"pm.test(\"Data is not found\", () => {\r",
+							"    pm.expect(pm.response.code).to.eq(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "54664f2c-f231-44de-8aba-8bdf6aa4b60c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/23",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List Resource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3b462dd5-c012-4db8-b8d0-37a78b917f7e",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"items\": {\r",
+							"        \"type\": \"array\",\r",
+							"        \"properties\": {\r",
+							"            \"data\": {\r",
+							"                \"id\": { \"type\": \"number\" },\r",
+							"                \"email\": { \"type\": \"string\", \"format\": \"email\" },\r",
+							"                \"first_name\": { \"type\": \"string\" },\r",
+							"                \"last_name\": { \"type\": \"string\" },\r",
+							"                \"avatar\": { \"type\": \"string\" },\r",
+							"            },\r",
+							"            \"support\": {\r",
+							"                \"url\": { \"type\": \"string\" },\r",
+							"                \"text\": { \"type\": \"string\" }\r",
+							"            }\r",
+							"        },\r",
+							"        \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"avatar\"]\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi Data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "39edec39-89ed-480e-95ca-fbb51e089100",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/unknown",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"unknown"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Resource",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54c62b94-036c-41bb-935e-0d892da0859f",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"data\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"id\": { \"type\": \"number\" },\r",
+							"                \"name\": { \"type\": \"string\" },\r",
+							"                \"year\": { \"type\": \"number\" },\r",
+							"                \"color\": { \"type\": \"string\" },\r",
+							"                \"pantone_value\": { \"type\": \"string\" },\r",
+							"            },\r",
+							"            \"required\": [\"id\", \"name\", \"year\", \"color\", \"pantone_value\"]\r",
+							"        },\r",
+							"        \"support\": {\r",
+							"            \"type\": \"object\",\r",
+							"            \"properties\": {\r",
+							"                \"url\": { \"type\": \"string\" },\r",
+							"                \"text\": { \"type\": \"string\" }\r",
+							"            },\r",
+							"            \"required\": [\"url\", \"text\"]\r",
+							"        }\r",
+							"    },\r",
+							"    \"required\": [\"data\", \"support\"]\r",
+							"}\r",
+							"\r",
+							"pm.environment.get(\"variable_key\");\r",
+							"pm.test(\"Response berisi Data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ecbd9672-89b4-479b-a59b-736de793974e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{unk}}/2",
+					"host": [
+						"{{unk}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Resource Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b232db6-b72d-4406-9d24-b35989768014",
+						"exec": [
+							"pm.test(\"Data is not found\", () => {\r",
+							"    pm.expect(pm.response.code).to.eq(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a3048b41-979f-4d28-bf90-f16c103df1e5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{unk}}/23",
+					"host": [
+						"{{unk}}"
+					],
+					"path": [
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f183429a-24d6-4f44-aba5-22ef91376072",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"name\": { \"type\": \"string\" },\r",
+							"        \"job\": { \"type\": \"string\" },\r",
+							"        \"updatedAt\": { \"type\": \"string\" }\r",
+							"    },\r",
+							"    \"required\": [\"name\", \"job\", \"updatedAt\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "025388cf-9ae0-44d3-9df8-3f4a8292f440",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dummy\",\r\n    \"job\": \"Back End Dev\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Unsuccessful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a58b47d-f757-40cb-bb34-968181c78e2f",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"error\": { \"type\": \"string\" },\r",
+							"    },\r",
+							"    \"required\": [\"error\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"    pm.expect(pm.response.code).to.eq(400);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "bed86837-132d-433a-a84b-8c0ba0428b47",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"joshua@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/register",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5458809e-4657-4d84-b7d9-0b8e16b38df2",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": { \"type\": \"number\" },\r",
+							"        \"token\": { \"type\": \"string\" },\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"token\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"    pm.expect(pm.response.code).to.eq(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "67b8a8cb-92ef-486a-8118-e6556b9cdc03",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"pistol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/register",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Unsuccessful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4f0ce3f-27da-4ac9-bfe9-ad3080857a2c",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"error\": { \"type\": \"string\" },\r",
+							"    },\r",
+							"    \"required\": [\"error\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"    pm.expect(pm.response.code).to.eq(400);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a29b68b1-e56e-4322-8731-6a90d5af08fb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"joshua@eduwork\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22afea97-7ef2-404f-a34c-628e9673c5e2",
+						"exec": [
+							"const contohSchema = {\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"token\": { \"type\": \"string\" },\r",
+							"    },\r",
+							"    \"required\": [\"token\"]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response berisi data JSON yang valid\", () => {\r",
+							"    pm.response.to.have.jsonSchema(contohSchema);\r",
+							"    pm.expect(pm.response.code).to.eq(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "ff720e69-9adb-4e7a-bb06-2e44137bfab8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"joshua@eduwork\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e61b06de-323f-48d5-8d16-9a8ebc871076",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c8180b5a-8107-48b6-bd04-96e2508db682",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "68460591-0d5b-46e0-93e0-33dc064b63ab",
+			"key": "url",
+			"value": "https://reqres.in/api/users",
+			"type": "string"
+		},
+		{
+			"id": "57be74b7-1f34-480b-83e3-61967aa65d77",
+			"key": "unk",
+			"value": "https://reqres.in/api/unknown",
+			"type": "string"
+		}
+	]
+}
